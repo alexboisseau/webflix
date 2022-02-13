@@ -1,0 +1,27 @@
+.MovieCard {
+  min-width: 110px;
+  min-height: 190px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (min-width: 768px) {
+  .MovieCard {
+    min-width: 160px;
+    min-height: 240px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@media (min-width: 1440px) {
+  .MovieCard {
+    min-width: 200px;
+    min-height: 300px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+  }
+}
