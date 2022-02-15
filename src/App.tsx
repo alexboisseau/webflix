@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import Home from './Pages/Home';
-import MovieDetail from './Pages/MovieDetail';
-import Movies from './Pages/Movies';
+import Home from './pages/Home';
+import MovieDetail from './pages/MovieDetail';
+import Movies from './pages/Movies';
 
 const App: FC = () => {
   return (
