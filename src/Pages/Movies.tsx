@@ -18,7 +18,7 @@ const Movies: FC = () => {
         {movies.map(({ id, poster_path }) => {
           return (
             <div key={id}>
-              <MovieCard key={id} posterPath={poster_path} />
+              <MovieCard id={id} posterPath={poster_path} />
             </div>
           );
         })}

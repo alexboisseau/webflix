@@ -4,6 +4,11 @@
   border-radius: 8px;
   background-size: cover;
   background-position: center;
+  box-shadow: 1px 1px 8px rgb(88, 88, 88);
+}
+
+.MovieCard:hover {
+  box-shadow: 2px 2px 15px rgb(122, 122, 122);
 }
 
 @media (min-width: 768px) {
