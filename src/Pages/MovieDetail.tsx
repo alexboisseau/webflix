@@ -13,9 +13,28 @@ const MovieDetail: FC = () => {
 
   if (movie) {
     return (
-      <div className="xl:mt-16 lg:mt-12 mt-6">
-        <h1 className="font-bold text-xl">Detail for {movie.title}</h1>
-      </div>
+      <>
+        <img
+          className="rounded"
+          src={`https://image.tmdb.org/t/p/w500${movie.posterPath}`}
+          alt={movie.title}
+        />
+        <div className="space-y-2 mt-3">
+          <h2 className="font-bold text-xl">{movie.title}</h2>
+          <p className="text-gray-400 text-md">
+            <span className="font-bold text-gray-300">Release date :</span>{' '}
+            {movie.releaseDate}
+          </p>
+          <p className="text-gray-400 text-md">
+            <span className="font-bold text-gray-300">Duration :</span> 120
+            minutes
+          </p>
+          <p className="mt-3 text-justify text-gray-400">
+            <span className="font-bold text-gray-300">Overview :</span>{' '}
+            {movie.overview}
+          </p>
+        </div>
+      </>
     );
   } else {
     return <p>Movie not found</p>;
