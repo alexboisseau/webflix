@@ -1,10 +1,16 @@
 .MovieDetailPoster {
   max-width: 250px;
-  margin: auto;
+  margin: 0 auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
+  .MovieDetailPoster {
+    max-width: 300px;
+  }
 }
 
 @media (min-width: 1440px) {
+  .MovieDetailPoster {
+    max-width: 350px;
+  }
 }
