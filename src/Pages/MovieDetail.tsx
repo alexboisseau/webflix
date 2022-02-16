@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import CategorieButton from '../components/CategorieButton/CategorieButton';
 import { getCategoryById } from '../services/categoriesService';
-import { getMovieById } from '../services/moviesService';
+import { getMovieById, getSimilarMovies } from '../services/moviesService';
 import { Category } from '../types/category';
 
 import { Movie } from '../types/movie';
@@ -13,6 +13,7 @@ const MovieDetail: FC = () => {
   const { id } = useParams();
   let movie: Movie | null = null;
   const categories: Category[] = [];
+  let similarsMovies: Movie[] = [];
 
   if (id !== undefined) {
     movie = getMovieById(parseInt(id));
@@ -24,6 +25,8 @@ const MovieDetail: FC = () => {
           categories.push(category);
         }
       });
+
+      similarsMovies = getSimilarMovies(movie);
     }
   }
 
@@ -59,6 +62,18 @@ const MovieDetail: FC = () => {
             <span className="font-bold text-gray-300">Overview :</span>{' '}
             {movie.overview}
           </p>
+          <p className="mt-3 text-gray-400">
+            <span className="font-bold text-gray-300">Similary content :</span>{' '}
+          </p>
+          <div>
+            {similarsMovies.map((similarMovie) => {
+              return (
+                <p key={similarMovie.id} className="text-gray-400">
+                  {similarMovie.title}
+                </p>
+              );
+            })}
+          </div>
         </div>
       </>
     );

@@ -12,4 +12,21 @@ const getMovieById = (id: number): Movie | null => {
   return result !== undefined ? result : null;
 };
 
-export { getAllMovies, getMovieById };
+const getSimilarMovies = (currentMovie: Movie): Movie[] => {
+  const movies: Movie[] = getAllMovies();
+  const result: Movie[] = [];
+
+  currentMovie.genreIds.forEach((genre) => {
+    const similars = movies.filter(
+      (movie) =>
+        movie.genreIds.includes(genre) &&
+        movie.id !== currentMovie.id &&
+        !result.includes(movie),
+    );
+    result.push(...similars);
+  });
+
+  return result;
+};
+
+export { getAllMovies, getMovieById, getSimilarMovies };
