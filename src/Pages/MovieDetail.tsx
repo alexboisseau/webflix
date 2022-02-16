@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import CategorieButton from '../components/CategorieButton/CategorieButton';
+import HorizontalList from '../components/HorizontalList/HorizontalList';
+import MovieCard from '../components/MovieCard/MovieCard';
 import { getCategoryById } from '../services/categoriesService';
 import { getMovieById, getSimilarMovies } from '../services/moviesService';
 import { Category } from '../types/category';
@@ -33,23 +35,27 @@ const MovieDetail: FC = () => {
   if (movie) {
     return (
       <>
-        <div className="sm:flex sm:items-start sm:justify-center sm:space-x-5">
+        <div className="sm:flex sm:items-start jsm:ustify-start sm:space-x-5">
           <img
             className="rounded MovieDetailPoster"
             src={`https://image.tmdb.org/t/p/w500${movie.posterPath}`}
             alt={movie.title}
           />
           <div className="space-y-2 mt-3 sm:mt-0">
-            <h2 className="font-bold text-xl">{movie.title}</h2>
-            <p className="text-gray-400 text-md">
+            <h2 className="font-bold text-xl md:text-2xl xl:text-5xl">
+              {movie.title}
+            </h2>
+            <p className="text-gray-400 text-md lg:text-md xl:text-lg">
               <span className="font-bold text-gray-300">Release date :</span>{' '}
               {movie.releaseDate}
             </p>
-            <p className="text-gray-400 text-md">
+            <p className="text-gray-400 text-md lg:text-md xl:text-lg">
               <span className="font-bold text-gray-300">Duration :</span> 120
               minutes
             </p>
-            <p className="font-bold text-gray-300">Categories :</p>
+            <p className="font-bold text-gray-300 lg:text-md xl:text-lg">
+              Categories :
+            </p>
             <div className="flex flex-wrap">
               {categories.map((category) => {
                 return (
@@ -59,24 +65,29 @@ const MovieDetail: FC = () => {
                 );
               })}
             </div>
-            <p className="mt-3 text-gray-400">
-              <span className="font-bold text-gray-300">Overview :</span>{' '}
-              {movie.overview}
-            </p>
           </div>
         </div>
         <div>
-          <p className="mt-3 text-gray-400">
+          <p className="mt-3 text-gray-400 xl:text-lg">
+            <span className="font-bold text-gray-300">Overview :</span>{' '}
+            {movie.overview}
+          </p>
+          <p className="mt-3 text-gray-400 xl:text-lg">
             <span className="font-bold text-gray-300">Similary content :</span>{' '}
           </p>
           <div>
-            {similarsMovies.map((similarMovie) => {
-              return (
-                <p key={similarMovie.id} className="text-gray-400">
-                  {similarMovie.title}
-                </p>
-              );
-            })}
+            <HorizontalList>
+              {similarsMovies.map((similarMovie) => {
+                return (
+                  <div key={similarMovie.id}>
+                    <MovieCard
+                      id={similarMovie.id}
+                      posterPath={similarMovie.posterPath}
+                    />
+                  </div>
+                );
+              })}
+            </HorizontalList>
           </div>
         </div>
       </>
