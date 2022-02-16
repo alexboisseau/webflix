@@ -1,7 +1,10 @@
 import { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieById } from '../services/moviesService';
+
 import { Movie } from '../types/movie';
+
+import './MovieDetail.css';
 
 const MovieDetail: FC = () => {
   const { id } = useParams();
@@ -15,7 +18,7 @@ const MovieDetail: FC = () => {
     return (
       <>
         <img
-          className="rounded"
+          className="rounded MovieDetailPoster"
           src={`https://image.tmdb.org/t/p/w500${movie.posterPath}`}
           alt={movie.title}
         />
