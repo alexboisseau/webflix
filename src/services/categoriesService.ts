@@ -11,17 +11,5 @@ export const getCategoryById = (categoryId: string): Category | null => {
     ([id]) => id === categoryId,
   );
 
-  const result: Category = {
-    id: '0',
-    name: '',
-  };
-
-  if (category[0]) {
-    result.id = category[0][0];
-    result.name = category[0][1];
-
-    return result;
-  }
-
-  return null;
+  return category[0] ? { id: category[0][0], name: category[0][1] } : null;
 };
