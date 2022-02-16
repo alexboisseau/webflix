@@ -46,7 +46,7 @@ const MovieDetail: FC = () => {
             minutes
           </p>
           <p className="font-bold text-gray-300">Categories :</p>
-          <div className="flex flex-wrap space-x-2">
+          <div className="flex flex-wrap">
             {categories.map((category) => {
               return (
                 <div key={category.id}>
@@ -55,7 +55,7 @@ const MovieDetail: FC = () => {
               );
             })}
           </div>
-          <p className="mt-3 text-justify text-gray-400">
+          <p className="mt-3 text-gray-400">
             <span className="font-bold text-gray-300">Overview :</span>{' '}
             {movie.overview}
           </p>

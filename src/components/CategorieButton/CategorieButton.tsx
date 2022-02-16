@@ -5,7 +5,9 @@ interface CategorieButtonProps {
 }
 
 const CategorieButton: FC<CategorieButtonProps> = ({ label }) => {
-  return <p className="p-2 rounded bg-gray-800 text-white">{label}</p>;
+  return (
+    <p className="p-2 mr-2 mt-2 rounded bg-gray-800 text-white">{label}</p>
+  );
 };
 
 export default CategorieButton;
