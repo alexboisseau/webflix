@@ -1,24 +1,27 @@
-import { FC } from 'react';
-import { useParams } from 'react-router-dom';
+import { FC, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import CategorieButton from '../components/CategorieButton/CategorieButton';
 import HorizontalList from '../components/HorizontalList/HorizontalList';
 import MovieCard from '../components/MovieCard/MovieCard';
 import { VoteAverage } from '../components/VoteAverage/VoteAverage';
+
 import { getCategoryById } from '../services/categoriesService';
 import { getMovieById, getSimilarMovies } from '../services/moviesService';
-import { Category } from '../types/category';
 
+import { Category } from '../types/category';
 import { Movie } from '../types/movie';
 
 import './MovieDetail.css';
 
 const MovieDetail: FC = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   let movie: Movie | null = null;
   const categories: Category[] = [];
   let similarsMovies: Movie[] = [];
 
-  if (id !== undefined) {
+  if (id) {
     movie = getMovieById(parseInt(id));
 
     if (movie) {
@@ -33,6 +36,12 @@ const MovieDetail: FC = () => {
       });
     }
   }
+
+  useEffect(() => {
+    if (!movie) {
+      navigate('/movies');
+    }
+  }, [movie]);
 
   if (movie) {
     return (
