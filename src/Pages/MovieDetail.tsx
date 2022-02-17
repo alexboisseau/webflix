@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import CategorieButton from '../components/CategorieButton/CategorieButton';
 import HorizontalList from '../components/HorizontalList/HorizontalList';
@@ -16,10 +16,18 @@ import './MovieDetail.css';
 
 const MovieDetail: FC = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   let movie: Movie | null = null;
   const categories: Category[] = [];
   let similarsMovies: Movie[] = [];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    console.log('id changed');
+  }, [id]);
+
+  useEffect(() => {
+    console.log('mount');
+  }, []);
 
   if (id) {
     movie = getMovieById(parseInt(id));
@@ -36,14 +44,6 @@ const MovieDetail: FC = () => {
       });
     }
   }
-
-  useEffect(() => {
-    if (!movie) {
-      navigate('/');
-    }
-
-    window.scrollTo(0, 0);
-  }, [movie]);
 
   if (movie) {
     return (
@@ -117,7 +117,7 @@ const MovieDetail: FC = () => {
       </>
     );
   } else {
-    return <p>Movie not found</p>;
+    return <Navigate to="/" />;
   }
 };
 
