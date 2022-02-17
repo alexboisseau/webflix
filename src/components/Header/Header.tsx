@@ -8,7 +8,7 @@ const Header: FC = () => {
         <p className="font-bold sm:text-3xl text-2xl">WebFlix 🍿</p>
       </Link>
       <nav>
-        <Link to="/movies">
+        <Link to="/">
           <p className="text-gray-300 hover:text-white hover:underline">
             Movies
           </p>
