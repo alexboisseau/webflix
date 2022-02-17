@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import CategorieButton from '../components/CategorieButton/CategorieButton';
 import HorizontalList from '../components/HorizontalList/HorizontalList';
 import MovieCard from '../components/MovieCard/MovieCard';
+import { VoteAverage } from '../components/VoteAverage/VoteAverage';
 import { getCategoryById } from '../services/categoriesService';
 import { getMovieById, getSimilarMovies } from '../services/moviesService';
 import { Category } from '../types/category';
@@ -19,7 +20,10 @@ const MovieDetail: FC = () => {
 
   if (id !== undefined) {
     movie = getMovieById(parseInt(id));
-    if (movie?.genreIds) {
+
+    if (movie) {
+      similarsMovies = getSimilarMovies(movie);
+
       movie.genreIds.forEach((id) => {
         const category: Category | null = getCategoryById(id.toString());
 
@@ -27,8 +31,6 @@ const MovieDetail: FC = () => {
           categories.push(category);
         }
       });
-
-      similarsMovies = getSimilarMovies(movie);
     }
   }
 
@@ -54,6 +56,17 @@ const MovieDetail: FC = () => {
               minutes
             </p>
             <p className="font-bold text-gray-300 lg:text-md xl:text-lg">
+              Vote average :
+            </p>
+            {movie.voteCount > 0 ? (
+              <VoteAverage
+                voteAverageValue={Math.round(movie.voteAverage / 2)}
+                voteAverageCount={movie.voteCount}
+              />
+            ) : (
+              'No votes for this moment ...'
+            )}
+            <p className="font-bold text-gray-300 lg:text-md xl:text-lg">
               Categories :
             </p>
             <div className="flex flex-wrap">
@@ -68,11 +81,11 @@ const MovieDetail: FC = () => {
           </div>
         </div>
         <div>
-          <p className="mt-3 text-gray-400 xl:text-lg">
+          <p className="lg:mt-7 mt-3 text-gray-400 xl:text-lg">
             <span className="font-bold text-gray-300">Overview :</span>{' '}
             {movie.overview}
           </p>
-          <p className="mt-3 text-gray-400 xl:text-lg">
+          <p className="lg:mt-7 mt-3 text-gray-400 xl:text-lg">
             <span className="font-bold text-gray-300">Similary content :</span>{' '}
           </p>
           <div>
