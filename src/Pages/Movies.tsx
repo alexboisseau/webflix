@@ -31,8 +31,8 @@ const Movies: FC = () => {
   }, [searchValue]);
 
   return (
-    <div className="xl:mt-16 lg:mt-12 mt-6 space-y-8">
-      <h1 className="font-bold text-6xl text-center">
+    <div className="xl:mt-16 lg:mt-12 mt-6 space-y-5 lg:space-y-10">
+      <h1 className="font-bold text-3xl sm:text-5xl lg:text-6xl text-center">
         The best platform to find a movie
       </h1>
       <SearchBar

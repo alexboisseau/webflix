@@ -41,6 +41,8 @@ const MovieDetail: FC = () => {
     if (!movie) {
       navigate('/movies');
     }
+
+    window.scrollTo(0, 0);
   }, [movie]);
 
   if (movie) {
