@@ -39,7 +39,7 @@ const MovieDetail: FC = () => {
 
   useEffect(() => {
     if (!movie) {
-      navigate('/movies');
+      navigate('/');
     }
 
     window.scrollTo(0, 0);
