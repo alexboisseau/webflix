@@ -7,12 +7,14 @@ interface SearchBarProps {
 
 export const SearchBar: FC<SearchBarProps> = ({ value, onChange }) => {
   return (
-    <input
-      className="rounded px-3 py-1 text-gray-800"
-      type="text"
-      placeholder="Search a movie"
-      value={value}
-      onChange={onChange}
-    />
+    <div className="flex justify-center">
+      <input
+        className="rounded px-3 py-2 text-gray-800 w-8/12"
+        type="text"
+        placeholder="Enter the title of a movie"
+        value={value}
+        onChange={onChange}
+      />
+    </div>
   );
 };
