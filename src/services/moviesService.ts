@@ -1,32 +1,47 @@
-import data from '../data/data.json';
-import { Movie } from '../types/movie';
+import { MovieDataResponse, MoviesDataResponse } from '../types/movie';
 
-const getAllMovies = (): Movie[] => {
-  return data.movies;
+const getAllMovies = async (): Promise<MoviesDataResponse[]> => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_DOMAIN}/movie/popular?api_key=${process.env.REACT_APP_API_KEY}`,
+  );
+
+  if (!response.ok) {
+    throw new Error('Error during request to fetch movies');
+  }
+
+  const movies = await response.json();
+  return movies.results;
 };
 
-const getMovieById = (id: number): Movie | null => {
-  const movies = getAllMovies();
-  const result = movies.filter((movie) => movie.id === id)[0];
+const getMovieById = async (id: number): Promise<MovieDataResponse> => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_DOMAIN}/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`,
+  );
 
-  return result !== undefined ? result : null;
+  if (!response.ok) {
+    throw new Error('Error during request to fetch detail movie');
+  }
+
+  const movie = await response.json();
+
+  return movie;
 };
 
-const getSimilarMovies = (currentMovie: Movie): Movie[] => {
-  const movies: Movie[] = getAllMovies();
-  const result: Movie[] = [];
+// const getSimilarMovies = (currentMovie: Movie): Movie[] => {
+//   const movies: Movie[] = getAllMovies();
+//   const result: Movie[] = [];
 
-  currentMovie.genreIds.forEach((genre) => {
-    const similars = movies.filter(
-      (movie) =>
-        movie.genreIds.includes(genre) &&
-        movie.id !== currentMovie.id &&
-        !result.includes(movie),
-    );
-    result.push(...similars);
-  });
+//   currentMovie.genreIds.forEach((genre) => {
+//     const similars = movies.filter(
+//       (movie) =>
+//         movie.genreIds.includes(genre) &&
+//         movie.id !== currentMovie.id &&
+//         !result.includes(movie),
+//     );
+//     result.push(...similars);
+//   });
 
-  return result;
-};
+//   return result;
+// };
 
-export { getAllMovies, getMovieById, getSimilarMovies };
+export { getAllMovies, getMovieById };

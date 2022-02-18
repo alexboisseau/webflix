@@ -6,29 +6,46 @@ import MovieCard from '../components/MovieCard/MovieCard';
 import VerticalList from '../components/VerticalList/VerticalList';
 import { SearchBar } from '../components/SearchBar/SearchBar';
 import { useSearchParams } from 'react-router-dom';
+import { MoviesDataResponse } from '../types/movie';
 
 const Movies: FC = () => {
-  const [searchValue, setSearchValue] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
-  const movies = getAllMovies();
-  const [filteredMovies, setFilteredMovies] = useState(movies);
+  const [searchValue, setSearchValue] = useState(
+    searchParams.get('filter') || '',
+  );
+  const [movies, setMovies] = useState<MoviesDataResponse[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<unknown | null>(null);
+  //const [filteredMovies, setFilteredMovies] = useState(movies);
+
+  const fetchMovies = async () => {
+    try {
+      setMovies(await getAllMovies());
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const searchParam = searchParams.get('filter');
-    if (searchParam) {
-      setSearchValue(searchParam);
-    }
+    fetchMovies();
+
+    // const searchParam = searchParams.get('filter');
+    // if (searchParam) {
+    //   setSearchValue(searchParam);
+    // }
   }, []);
 
-  useEffect(() => {
-    setSearchParams({ filter: searchValue });
+  // useEffect(() => {
+  //   setSearchParams({ filter: searchValue });
 
-    setFilteredMovies(
-      movies.filter((movie) =>
-        movie.title.toLowerCase().includes(searchValue.toLowerCase()),
-      ),
-    );
-  }, [searchValue]);
+  //   setFilteredMovies(
+  //     movies.filter((movie) =>
+  //       movie.title.toLowerCase().includes(searchValue.toLowerCase()),
+  //     ),
+  //   );
+  // }, [searchValue]);
 
   return (
     <div className="xl:mt-16 lg:mt-12 mt-6 space-y-5 lg:space-y-10">
@@ -39,15 +56,23 @@ const Movies: FC = () => {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-      <VerticalList>
-        {filteredMovies.map(({ id, posterPath }) => {
-          return (
-            <div key={id}>
-              <MovieCard id={id} posterPath={posterPath} />
-            </div>
-          );
-        })}
-      </VerticalList>
+      {loading && <p className={'text-center text-xl'}>Loading ...</p>}
+      {error && (
+        <p className={'text-center text-xl'}>
+          Oups ... We are sorry but something went wrong ...
+        </p>
+      )}
+      {!loading && !error && (
+        <VerticalList>
+          {movies.map(({ id, poster_path }) => {
+            return (
+              <div key={id}>
+                <MovieCard id={id} posterPath={poster_path} />
+              </div>
+            );
+          })}
+        </VerticalList>
+      )}
     </div>
   );
 };

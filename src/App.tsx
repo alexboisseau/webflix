@@ -6,7 +6,6 @@ import MovieDetail from './pages/MovieDetail';
 import Movies from './pages/Movies';
 
 const App: FC = () => {
-  console.log('API_REACT', process.env.REACT_APP_API_KEY);
   return (
     <main className="flex flex-col justify-between w-full min-h-screen bg-zinc-900 text-white">
       <BrowserRouter>
