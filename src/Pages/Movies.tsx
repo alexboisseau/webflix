@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react';
 
 import {
   getAllMovies,
@@ -20,7 +20,7 @@ const Movies: FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<unknown | null>(null);
 
-  const fetchMovies = async () => {
+  const fetchMovies = useCallback(async () => {
     setLoading(true);
     try {
       setMovies(
@@ -33,26 +33,24 @@ const Movies: FC = () => {
     } finally {
       setLoading(false);
     }
+  }, [searchValue]);
+
+  const onSearchValueChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const newValue = target.value;
+    setSearchValue(newValue);
+    setSearchParams(newValue !== '' ? { filter: newValue } : {});
   };
 
   useEffect(() => {
     fetchMovies();
-  }, []);
-
-  useEffect(() => {
-    setSearchParams(searchValue !== '' ? { filter: searchValue } : {});
-    fetchMovies();
-  }, [searchValue]);
+  }, [fetchMovies]);
 
   return (
     <div className="xl:mt-16 lg:mt-12 mt-6 space-y-5 lg:space-y-10">
       <h1 className="font-bold text-3xl sm:text-5xl lg:text-6xl text-center">
         The best platform to find a movie
       </h1>
-      <SearchBar
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
+      <SearchBar value={searchValue} onChange={(e) => onSearchValueChange(e)} />
       {loading && <p className={'text-center text-xl'}>Loading ...</p>}
       {error && (
         <p className={'text-center text-xl'}>
