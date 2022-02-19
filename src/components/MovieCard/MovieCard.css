@@ -1,5 +1,9 @@
 .MovieCard {
   width: 122px;
+}
+
+.MovieCardPoster {
+  width: 100%;
   min-height: 190px;
   border-radius: 8px;
   background-size: cover;
@@ -7,26 +11,26 @@
   box-shadow: 1px 1px 8px rgb(88, 88, 88);
 }
 
-.MovieCard:hover {
+.MovieCardPoster:hover {
   box-shadow: 2px 2px 15px rgb(122, 122, 122);
 }
 
 @media (min-width: 768px) {
   .MovieCard {
-    min-width: 160px;
+    width: 160px;
+  }
+
+  .MovieCardPoster {
     min-height: 240px;
-    border-radius: 8px;
-    background-size: cover;
-    background-position: center;
   }
 }
 
 @media (min-width: 1440px) {
   .MovieCard {
-    min-width: 200px;
+    width: 200px;
+  }
+
+  .MovieCardPoster {
     min-height: 300px;
-    border-radius: 8px;
-    background-size: cover;
-    background-position: center;
   }
 }
