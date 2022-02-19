@@ -1,31 +1,26 @@
-import { FC, useEffect, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { FC, useCallback, useEffect, useState } from 'react';
+import { Link, Navigate, useParams } from 'react-router-dom';
 
 import CategorieButton from '../components/CategorieButton/CategorieButton';
-import HorizontalList from '../components/HorizontalList/HorizontalList';
-import MovieCard from '../components/MovieCard/MovieCard';
 import { VoteAverage } from '../components/VoteAverage/VoteAverage';
 
-import { getCategoryById } from '../services/categoriesService';
 import { getMovieById } from '../services/moviesService';
 
-import { Category } from '../types/category';
-import { Genre, MovieDataResponse } from '../types/movie';
+import { Genre, MovieDetail } from '../types/movie';
 
 import './MovieDetail.css';
 
-const MovieDetail: FC = () => {
+const Movie: FC = () => {
   const { id } = useParams();
-  const [movie, setMovie] = useState<MovieDataResponse>();
+  const [movie, setMovie] = useState<MovieDetail>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<unknown | null>(null);
-  // let similarsMovies: Movie[] = [];
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     if (id) {
       try {
         const movieDetail = await getMovieById(parseInt(id));
@@ -36,11 +31,11 @@ const MovieDetail: FC = () => {
         setLoading(false);
       }
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   if (loading) return <p>Loading ...</p>;
   if (error) {
@@ -123,4 +118,4 @@ const MovieDetail: FC = () => {
   }
 };
 
-export default MovieDetail;
+export default Movie;

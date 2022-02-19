@@ -9,14 +9,14 @@ import MovieCard from '../components/MovieCard/MovieCard';
 import VerticalList from '../components/VerticalList/VerticalList';
 import { SearchBar } from '../components/SearchBar/SearchBar';
 import { useSearchParams } from 'react-router-dom';
-import { MoviesDataResponse } from '../types/movie';
+import { Movie } from '../types/movie';
 
 const Movies: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchValue, setSearchValue] = useState(
     searchParams.get('filter') || '',
   );
-  const [movies, setMovies] = useState<MoviesDataResponse[]>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<unknown | null>(null);
 

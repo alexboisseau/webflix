@@ -1,10 +1,6 @@
-import {
-  MovieDataResponse,
-  MoviesDataResponse,
-  MovieSearchDataResponse,
-} from '../types/movie';
+import { MovieDetail, Movie } from '../types/movie';
 
-const getAllMovies = async (): Promise<MoviesDataResponse[]> => {
+const getAllMovies = async (): Promise<Movie[]> => {
   const response = await fetch(
     `${process.env.REACT_APP_API_DOMAIN}/movie/popular?api_key=${process.env.REACT_APP_API_KEY}`,
   );
@@ -19,7 +15,7 @@ const getAllMovies = async (): Promise<MoviesDataResponse[]> => {
 
 const getMoviesBySearchValue = async (
   searchValue: string,
-): Promise<MoviesDataResponse[]> => {
+): Promise<Movie[]> => {
   const response = await fetch(
     `${process.env.REACT_APP_API_DOMAIN}/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${searchValue}`,
   );
@@ -28,11 +24,11 @@ const getMoviesBySearchValue = async (
     throw new Error('Error during request to fetch movies by a query');
   }
 
-  const movies: MovieSearchDataResponse = await response.json();
+  const movies = await response.json();
   return movies.results;
 };
 
-const getMovieById = async (id: number): Promise<MovieDataResponse> => {
+const getMovieById = async (id: number): Promise<MovieDetail> => {
   const response = await fetch(
     `${process.env.REACT_APP_API_DOMAIN}/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`,
   );

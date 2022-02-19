@@ -1,4 +1,4 @@
-export interface MoviesDataResponse {
+export interface Movie {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -15,14 +15,7 @@ export interface MoviesDataResponse {
   vote_count: number;
 }
 
-export interface MovieSearchDataResponse {
-  page: number;
-  results: MoviesDataResponse[];
-  total_results: number;
-  total_pages: number;
-}
-
-export interface MovieDataResponse {
+export interface MovieDetail {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: null;
