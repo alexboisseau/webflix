@@ -15,6 +15,13 @@ export interface MoviesDataResponse {
   vote_count: number;
 }
 
+export interface MovieSearchDataResponse {
+  page: number;
+  results: MoviesDataResponse[];
+  total_results: number;
+  total_pages: number;
+}
+
 export interface MovieDataResponse {
   adult: boolean;
   backdrop_path: string;

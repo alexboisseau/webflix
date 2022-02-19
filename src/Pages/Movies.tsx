@@ -1,6 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 
-import { getAllMovies } from '../services/moviesService';
+import {
+  getAllMovies,
+  getMoviesBySearchValue,
+} from '../services/moviesService';
 
 import MovieCard from '../components/MovieCard/MovieCard';
 import VerticalList from '../components/VerticalList/VerticalList';
@@ -16,11 +19,15 @@ const Movies: FC = () => {
   const [movies, setMovies] = useState<MoviesDataResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<unknown | null>(null);
-  //const [filteredMovies, setFilteredMovies] = useState(movies);
 
   const fetchMovies = async () => {
+    setLoading(true);
     try {
-      setMovies(await getAllMovies());
+      setMovies(
+        searchValue
+          ? await getMoviesBySearchValue(searchValue)
+          : await getAllMovies(),
+      );
     } catch (err) {
       setError(err);
     } finally {
@@ -30,22 +37,12 @@ const Movies: FC = () => {
 
   useEffect(() => {
     fetchMovies();
-
-    // const searchParam = searchParams.get('filter');
-    // if (searchParam) {
-    //   setSearchValue(searchParam);
-    // }
   }, []);
 
-  // useEffect(() => {
-  //   setSearchParams({ filter: searchValue });
-
-  //   setFilteredMovies(
-  //     movies.filter((movie) =>
-  //       movie.title.toLowerCase().includes(searchValue.toLowerCase()),
-  //     ),
-  //   );
-  // }, [searchValue]);
+  useEffect(() => {
+    setSearchParams(searchValue !== '' ? { filter: searchValue } : {});
+    fetchMovies();
+  }, [searchValue]);
 
   return (
     <div className="xl:mt-16 lg:mt-12 mt-6 space-y-5 lg:space-y-10">
@@ -64,10 +61,10 @@ const Movies: FC = () => {
       )}
       {!loading && !error && (
         <VerticalList>
-          {movies.map(({ id, poster_path }) => {
+          {movies.map(({ id, poster_path, title }) => {
             return (
               <div key={id}>
-                <MovieCard id={id} posterPath={poster_path} />
+                <MovieCard id={id} posterPath={poster_path} title={title} />
               </div>
             );
           })}
