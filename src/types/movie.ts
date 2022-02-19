@@ -1,4 +1,4 @@
-export interface Movie {
+export interface MovieType {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -15,7 +15,7 @@ export interface Movie {
   vote_count: number;
 }
 
-export interface MovieDetail {
+export interface MovieDetailType {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: null;

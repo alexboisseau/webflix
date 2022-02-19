@@ -1,20 +1,23 @@
 import { FC, useCallback, useEffect, useState } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import CategorieButton from '../components/CategorieButton/CategorieButton';
+import HorizontalList from '../components/HorizontalList/HorizontalList';
+import MovieCard from '../components/MovieCard/MovieCard';
 import { VoteAverage } from '../components/VoteAverage/VoteAverage';
 
-import { getMovieById } from '../services/moviesService';
+import { getMovieById, getSimilarMovies } from '../services/moviesService';
 
-import { Genre, MovieDetail } from '../types/movie';
+import { Genre, MovieType, MovieDetailType } from '../types/movie';
 
 import './MovieDetail.css';
 
 const Movie: FC = () => {
   const { id } = useParams();
-  const [movie, setMovie] = useState<MovieDetail>();
+  const [movie, setMovie] = useState<MovieDetailType>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<unknown | null>(null);
+  const [similarMovies, setSimilarMovies] = useState<MovieType[]>([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,7 +27,10 @@ const Movie: FC = () => {
     if (id) {
       try {
         const movieDetail = await getMovieById(parseInt(id));
+        const similarMovies = await getSimilarMovies(parseInt(id));
+
         setMovie(movieDetail);
+        setSimilarMovies(similarMovies);
       } catch (err) {
         setError(true);
       } finally {
@@ -38,11 +44,7 @@ const Movie: FC = () => {
   }, [fetchData]);
 
   if (loading) return <p>Loading ...</p>;
-  if (error) {
-    console.log('No movie found for this id ...');
-    return <Navigate to="/" />;
-  }
-  if (movie) {
+  if (movie && !error) {
     return (
       <>
         <div className="sm:flex sm:items-start jsm:ustify-start sm:space-x-5">
@@ -96,25 +98,26 @@ const Movie: FC = () => {
           <p className="lg:mt-7 mt-3 text-gray-400 xl:text-lg">
             <span className="font-bold text-gray-300">Similary content :</span>{' '}
           </p>
-          {/* <div>
+          <div>
             <HorizontalList>
-              {similarsMovies.map((similarMovie) => {
+              {similarMovies.map((similarMovie) => {
                 return (
                   <div key={similarMovie.id}>
                     <MovieCard
                       id={similarMovie.id}
-                      posterPath={similarMovie.posterPath}
+                      posterPath={similarMovie.poster_path}
+                      title={similarMovie.title}
                     />
                   </div>
                 );
               })}
             </HorizontalList>
-          </div> */}
+          </div>
         </div>
       </>
     );
   } else {
-    return <p>Redirection ...</p>;
+    return <Navigate to="/" />;
   }
 };
 
