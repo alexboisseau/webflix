@@ -7,6 +7,8 @@ import MovieCard from '../components/MovieCard/MovieCard';
 import { VoteAverage } from '../components/VoteAverage/VoteAverage';
 
 import { getMovieById, getSimilarMovies } from '../services/moviesService';
+import { toggle } from '../store/favoriteSlice';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 import { Genre, MovieType, MovieDetailType } from '../types/movie';
 
@@ -18,6 +20,10 @@ const Movie: FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<unknown | null>(null);
   const [similarMovies, setSimilarMovies] = useState<MovieType[]>([]);
+
+  // Redux
+  const favoritesMovies = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -107,6 +113,10 @@ const Movie: FC = () => {
                       id={similarMovie.id}
                       posterPath={similarMovie.poster_path}
                       title={similarMovie.title}
+                      onFavClick={() =>
+                        dispatch(toggle({ id: similarMovie.id }))
+                      }
+                      isFavorite={favoritesMovies.includes(similarMovie.id)}
                     />
                   </div>
                 );

@@ -23,6 +23,7 @@ const Movies: FC = () => {
   const [error, setError] = useState<unknown | null>(null);
 
   // Redux
+  const favoritesMovies = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   const fetchMovies = useCallback(async () => {
@@ -72,6 +73,7 @@ const Movies: FC = () => {
                   posterPath={poster_path}
                   title={title}
                   onFavClick={() => dispatch(toggle({ id }))}
+                  isFavorite={favoritesMovies.includes(id)}
                 />
               </div>
             );

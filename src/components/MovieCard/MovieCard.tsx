@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MdiCardsHeartOutline } from '../Icons/Icons';
+
+import { MdiCardsHeart, MdiCardsHeartOutline } from '../Icons/Icons';
 
 import './MovieCard.css';
 
@@ -10,6 +10,7 @@ interface MovieCardProps {
   posterPath: string;
   title: string;
   onFavClick?: () => void;
+  isFavorite?: boolean;
 }
 
 const MovieCard: FC<MovieCardProps> = ({
@@ -17,6 +18,7 @@ const MovieCard: FC<MovieCardProps> = ({
   posterPath,
   title,
   onFavClick,
+  isFavorite = false,
 }) => {
   const imageURL = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
@@ -35,7 +37,10 @@ const MovieCard: FC<MovieCardProps> = ({
         <p className="font-bold sm:text-lg text-md w-10/12">{title}</p>
         {onFavClick && (
           <button>
-            <MdiCardsHeartOutline onClick={() => onFavClick()} />
+            {!isFavorite && (
+              <MdiCardsHeartOutline onClick={() => onFavClick()} />
+            )}
+            {isFavorite && <MdiCardsHeart onClick={() => onFavClick()} />}
           </button>
         )}
       </div>
