@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const favoritesMovies: string[] = [];
+const favoritesMovies: number[] = [];
 
 const favoriteSlice = createSlice({
   name: 'favorite',
