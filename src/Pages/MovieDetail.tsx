@@ -3,6 +3,7 @@ import { Navigate, useParams } from 'react-router-dom';
 
 import CategorieButton from '../components/CategorieButton/CategorieButton';
 import HorizontalList from '../components/HorizontalList/HorizontalList';
+import { MdiCardsHeart, MdiCardsHeartOutline } from '../components/Icons/Icons';
 import MovieCard from '../components/MovieCard/MovieCard';
 import { VoteAverage } from '../components/VoteAverage/VoteAverage';
 
@@ -63,6 +64,21 @@ const Movie: FC = () => {
             <h2 className="font-bold text-xl md:text-2xl xl:text-5xl">
               {movie.title}
             </h2>
+            <button
+              className={`px-2 py-1 border ${
+                !favoritesMovies.includes(movie.id)
+                  ? 'hover:border-yellow-300 hover:text-yellow-300'
+                  : 'hover:border-red-600 hover:text-red-600'
+              } rounded`}
+              onClick={() => dispatch(toggle({ id: movie.id }))}
+            >
+              {!favoritesMovies.includes(movie.id) && (
+                <span>Add on your favorite</span>
+              )}
+              {favoritesMovies.includes(movie.id) && (
+                <span>Remove from your favorite</span>
+              )}
+            </button>
             <p className="text-gray-400 text-md lg:text-md xl:text-lg">
               <span className="font-bold text-gray-300">Release date :</span>{' '}
               {movie.release_date}
