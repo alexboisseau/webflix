@@ -3,7 +3,6 @@ import { Navigate, useParams } from 'react-router-dom';
 
 import CategorieButton from '../components/CategorieButton/CategorieButton';
 import HorizontalList from '../components/HorizontalList/HorizontalList';
-import { MdiCardsHeart, MdiCardsHeartOutline } from '../components/Icons/Icons';
 import MovieCard from '../components/MovieCard/MovieCard';
 import { VoteAverage } from '../components/VoteAverage/VoteAverage';
 
