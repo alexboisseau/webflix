@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Movie from './pages/MovieDetail';
 import Movies from './pages/Movies';
-import store from './store';
+import { store } from './store';
 
 const App: FC = () => {
   return (

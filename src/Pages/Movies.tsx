@@ -10,6 +10,8 @@ import VerticalList from '../components/VerticalList/VerticalList';
 import { SearchBar } from '../components/SearchBar/SearchBar';
 import { useSearchParams } from 'react-router-dom';
 import { MovieType } from '../types/movie';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { toggle } from '../store/favoriteSlice';
 
 const Movies: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,6 +21,9 @@ const Movies: FC = () => {
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<unknown | null>(null);
+
+  // Redux
+  const dispatch = useAppDispatch();
 
   const fetchMovies = useCallback(async () => {
     setLoading(true);
@@ -62,7 +67,12 @@ const Movies: FC = () => {
           {movies.map(({ id, poster_path, title }) => {
             return (
               <div key={id}>
-                <MovieCard id={id} posterPath={poster_path} title={title} />
+                <MovieCard
+                  id={id}
+                  posterPath={poster_path}
+                  title={title}
+                  onFavClick={() => dispatch(toggle({ id }))}
+                />
               </div>
             );
           })}

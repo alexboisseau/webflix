@@ -1,10 +1,9 @@
-import { compose, createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import reducer from './favoriteSlice';
 
-import { FavoriteReducer } from './favoriteReducer';
+export const store = configureStore({
+  reducer,
+});
 
-const composeEnhancers =
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(FavoriteReducer, composeEnhancers());
-
-export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

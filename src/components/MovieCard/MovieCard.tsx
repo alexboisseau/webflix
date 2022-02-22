@@ -9,9 +9,15 @@ interface MovieCardProps {
   id: number;
   posterPath: string;
   title: string;
+  onFavClick?: () => void;
 }
 
-const MovieCard: FC<MovieCardProps> = ({ id, posterPath, title }) => {
+const MovieCard: FC<MovieCardProps> = ({
+  id,
+  posterPath,
+  title,
+  onFavClick,
+}) => {
   const imageURL = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
   return (
@@ -27,9 +33,11 @@ const MovieCard: FC<MovieCardProps> = ({ id, posterPath, title }) => {
       </Link>
       <div className="flex items-start justify-around mt-1">
         <p className="font-bold sm:text-lg text-md w-10/12">{title}</p>
-        <button>
-          <MdiCardsHeartOutline onClick={() => console.log('toggle')} />
-        </button>
+        {onFavClick && (
+          <button>
+            <MdiCardsHeartOutline onClick={() => onFavClick()} />
+          </button>
+        )}
       </div>
     </div>
   );
