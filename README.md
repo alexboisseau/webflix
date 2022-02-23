@@ -1,4 +1,4 @@
-# Webflix
+# Webflix 🍿
 
 This application was created during React Course at Bordeaux Ynov Campus. This little app use The Movie DB API to allow user to search any movie he wants and add them inside his favorites list.
 
