@@ -2,11 +2,13 @@ import { FC } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import { store } from './store';
+
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Movie from './pages/MovieDetail';
 import Movies from './pages/Movies';
-import { store } from './store';
+import Favorites from './pages/Favorites';
 
 const App: FC = () => {
   return (
@@ -19,6 +21,7 @@ const App: FC = () => {
               <Routes>
                 <Route path="/" element={<Movies />} />
                 <Route path="/movies/:id" element={<Movie />} />
+                <Route path="/favorites" element={<Favorites />} />
               </Routes>
             </div>
           </div>

@@ -14,10 +14,15 @@ const Header: FC = () => {
           {favoritesMovies.length} movies in your favorites list
         </p>
       </Link>
-      <nav>
+      <nav className="flex space-x-2">
         <Link to="/">
           <p className="text-gray-300 hover:text-white hover:underline">
             Movies
+          </p>
+        </Link>
+        <Link to="/favorites">
+          <p className="text-gray-300 hover:text-white hover:underline">
+            Favorites
           </p>
         </Link>
       </nav>
