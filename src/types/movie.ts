@@ -1,13 +1,12 @@
 export interface MovieType {
   adult: boolean;
   backdrop_path: string;
-  genre_ids: number[];
   id: number;
   original_language: string;
   original_title: string;
   overview: string;
   popularity: number;
-  poster_path: string;
+  poster_path: string | null;
   release_date: Date;
   title: string;
   video: boolean;
@@ -28,7 +27,7 @@ export interface MovieDetailType {
   original_title: string;
   overview: string;
   popularity: number;
-  poster_path: null;
+  poster_path: string | null;
   production_companies: ProductionCompany[];
   production_countries: ProductionCountry[];
   release_date: Date;

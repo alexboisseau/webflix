@@ -7,7 +7,7 @@ import './MovieCard.css';
 
 interface MovieCardProps {
   id: number;
-  posterPath: string;
+  posterPath: string | null;
   title: string;
   onFavClick?: () => void;
   isFavorite?: boolean;

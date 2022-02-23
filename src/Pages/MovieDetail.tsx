@@ -65,16 +65,16 @@ const Movie: FC = () => {
             </h2>
             <button
               className={`px-2 py-1 border ${
-                !favoritesMovies.includes(movie.id)
+                !favoritesMovies.some(({ id }) => id === movie.id)
                   ? 'hover:border-yellow-300 hover:text-yellow-300'
                   : 'hover:border-red-600 hover:text-red-600'
               } rounded`}
-              onClick={() => dispatch(toggle({ id: movie.id }))}
+              onClick={() => dispatch(toggle({ movie }))}
             >
-              {!favoritesMovies.includes(movie.id) && (
+              {!favoritesMovies.some(({ id }) => id === movie.id) && (
                 <span>Add on your favorite</span>
               )}
-              {favoritesMovies.includes(movie.id) && (
+              {favoritesMovies.some(({ id }) => id === movie.id) && (
                 <span>Remove from your favorite</span>
               )}
             </button>
@@ -129,9 +129,11 @@ const Movie: FC = () => {
                       posterPath={similarMovie.poster_path}
                       title={similarMovie.title}
                       onFavClick={() =>
-                        dispatch(toggle({ id: similarMovie.id }))
+                        dispatch(toggle({ movie: similarMovie }))
                       }
-                      isFavorite={favoritesMovies.includes(similarMovie.id)}
+                      isFavorite={favoritesMovies.some(
+                        (movie) => movie.id === similarMovie.id,
+                      )}
                     />
                   </div>
                 );

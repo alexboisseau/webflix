@@ -65,15 +65,19 @@ const Movies: FC = () => {
       )}
       {!loading && !error && (
         <VerticalList>
-          {movies.map(({ id, poster_path, title }) => {
+          {movies.map((movie) => {
             return (
-              <div key={id}>
+              <div key={movie.id}>
                 <MovieCard
-                  id={id}
-                  posterPath={poster_path}
-                  title={title}
-                  onFavClick={() => dispatch(toggle({ id }))}
-                  isFavorite={favoritesMovies.includes(id)}
+                  id={movie.id}
+                  posterPath={movie.poster_path}
+                  title={movie.title}
+                  onFavClick={() => {
+                    dispatch(toggle({ movie }));
+                  }}
+                  isFavorite={favoritesMovies.some(
+                    (favoriteMovie) => favoriteMovie.id === movie.id,
+                  )}
                 />
               </div>
             );
