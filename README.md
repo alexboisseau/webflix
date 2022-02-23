@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Webflix
+
+This application was created during React Course at Bordeaux Ynov Campus. This little app use The Movie DB API to allow user to search any movie he wants and add them inside his favorites list.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
